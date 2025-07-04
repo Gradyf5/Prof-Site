@@ -13,6 +13,8 @@
             background-attachment: fixed; /* Keep gradient fixed on scroll */
             color: #E0E0E0; /* Light gray text for contrast */
             padding-top: 5rem; /* Space for fixed navigation bar */
+            position: relative; /* For absolute positioning of orbs */
+            overflow-x: hidden; /* Prevent horizontal scroll from orbs */
         }
         .container {
             max-width: 1200px;
@@ -48,7 +50,7 @@
             box-shadow: none;
             background-position: left center; /* Reset gradient position */
         }
-        .feature-card, .achievement-card { /* Renamed from success-story-card */
+        .feature-card, .achievement-card, .journey-card { /* Added .journey-card */
             background-color: rgba(255, 255, 255, 0.08); /* Slightly translucent white */
             border-radius: 1rem;
             padding: 2rem;
@@ -60,11 +62,11 @@
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
         }
-        .feature-card:hover, .achievement-card:hover { /* Renamed */
+        .feature-card:hover, .achievement-card:hover, .journey-card:hover { /* Added .journey-card */
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
-        .achievement-card:hover { /* Renamed */
+        .achievement-card:hover {
             transform: scale(1.03);
         }
 
@@ -164,7 +166,7 @@
         }
 
         /* Blog Post Page Styles */
-        .blog-page {
+        .blog-page, .portfolio-page, .case-study-page { /* Added .case-study-page */
             display: none; /* Hidden by default */
             position: fixed;
             top: 0;
@@ -183,7 +185,7 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        .blog-content {
+        .blog-content, .portfolio-content, .case-study-content { /* Added .case-study-content */
             background-color: rgba(255, 255, 255, 0.08);
             border-radius: 1rem;
             padding: 2.5rem;
@@ -193,26 +195,26 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: left;
         }
-        .blog-content h2 {
+        .blog-content h2, .portfolio-content h2, .case-study-content h2 { /* Added */
             font-size: 2.5rem;
             font-weight: 800;
             color: #FFFFFF;
             margin-bottom: 1.5rem;
             text-align: center;
         }
-        .blog-content p {
+        .blog-content p, .portfolio-content p, .case-study-content p { /* Added */
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 1rem;
             color: #C0C0C0;
         }
-        .blog-content ul {
+        .blog-content ul, .portfolio-content ul, .case-study-content ul { /* Added */
             list-style: disc;
             padding-left: 1.5rem;
             margin-bottom: 1rem;
             color: #C0C0C0;
         }
-        .blog-content li {
+        .blog-content li, .portfolio-content li, .case-study-content li { /* Added */
             margin-bottom: 0.5rem;
         }
         .back-btn {
@@ -389,20 +391,169 @@
             0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
+
+        /* Floating Orb Styles */
+        .floating-orb {
+            position: absolute;
+            background-image: linear-gradient(135deg, #8A2BE2, #FF8C00); /* Purple to Orange gradient */
+            border-radius: 50%;
+            filter: blur(20px); /* Soft glow effect */
+            opacity: 0.3;
+            pointer-events: none; /* Don't interfere with clicks */
+            animation: floatAndPulse 15s ease-in-out infinite alternate;
+            z-index: -1; /* Behind content */
+        }
+
+        @keyframes floatAndPulse {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translate(20vw, 15vh) scale(1.1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translate(0, 30vh) scale(0.9);
+                opacity: 0.25;
+            }
+            75% {
+                transform: translate(-20vw, 10vh) scale(1.2);
+                opacity: 0.45;
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+        }
+        .orb-size-lg { width: 200px; height: 200px; }
+        .orb-size-md { width: 120px; height: 120px; }
+        .orb-size-sm { width: 80px; height: 80px; }
+        .orb-pos-1 { top: 10%; left: 5%; animation-delay: 0s; animation-duration: 18s; }
+        .orb-pos-2 { top: 60%; left: 80%; animation-delay: 2s; animation-duration: 20s; }
+        .orb-pos-3 { top: 30%; left: 40%; animation-delay: 4s; animation-duration: 16s; }
+        .orb-pos-4 { top: 80%; left: 15%; animation-delay: 6s; animation-duration: 22s; }
+        .orb-pos-5 { top: 5%; right: 10%; animation-delay: 1s; animation-duration: 19s; }
+
+        /* Portfolio Item Card Styles */
+        .portfolio-item-card {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d; /* For 3D tilt */
+        }
+        .portfolio-item-card:hover {
+            transform: translateY(-5px) rotateX(5deg) rotateY(5deg); /* Subtle 3D tilt */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .portfolio-item-card .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #FF8C00; /* Orange accent for icons */
+        }
+        .portfolio-item-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.75rem;
+        }
+        .portfolio-item-card p {
+            font-size: 0.95rem;
+            color: #C0C0C0;
+            margin-bottom: 1rem;
+        }
+        .portfolio-item-card .metrics {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #8A2BE2; /* Purple accent for metrics */
+            margin-top: 0.5rem;
+        }
+
+        /* My Journey Section Styles */
+        #my-journey {
+            position: relative;
+            height: 100vh; /* Make it full viewport height for scroll snapping */
+            overflow: hidden; /* Hide overflow for content */
+            display: flex;
+            align-items: center; /* Vertically center content */
+            justify-content: center; /* Horizontally center content */
+        }
+        .journey-step {
+            position: absolute;
+            width: 80%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            pointer-events: none; /* Allow clicks through when not active */
+        }
+        .journey-step.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* Enable clicks when active */
+        }
+        .journey-step .emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #FF8C00;
+        }
+        .journey-step h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+        }
+        .journey-step p {
+            font-size: 1.1rem;
+            color: #C0C0C0;
+        }
+
+        /* Canvas for timeline line */
+        #timelineCanvas {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: 4px; /* Width of the line */
+            z-index: -1; /* Behind content */
+        }
     </style>
 </head>
 <body class="antialiased">
     <!-- Chosen Palette: Energetic & Deep Harmony (Main: Dark Gray/Black Gradient, Accent: Purple/Orange Gradient, Secondary: Translucent White/Dark Gray) -->
-    <!-- Application Structure Plan: The homepage is structured as a professional portfolio for Grady, featuring a prominent Hero section introducing him and his expertise in affiliate sales. This is followed by "My Philosophy & Insights", "My Achievements & Milestones", and a final "Contact" section now featuring a multi-step interactive form. A fixed, futuristic navigation bar is included. All interactive buttons now log actions relevant to a portfolio site (e.g., "learn more," "view details," "contact"). Clicking on philosophy feature cards now redirects to dedicated, animated blog post pages within the SPA. Subtle pointers to connect with Grady are integrated: feature cards have implicit CTAs, the achievements section button hints at more details, and a floating "Connect with Grady" button appears on scroll. This aims to subtly funnel users towards professional networking and inquiries. A new, animated, futuristic thank-you pop-up with confetti appears after successful contact form submission. -->
-    <!-- Visualization & Content Choices: Summary: The page serves as Grady's personal portfolio for affiliate sales expertise, now with integrated blog posts and an advanced contact form. Goal: To introduce Grady, showcase his knowledge and achievements, provide deeper insights via blog posts, and encourage professional connection through a personalized inquiry process, with a celebratory thank you. Viz/Presentation Method: Large, bold headlines; concise paragraphs; illustrative emojis for features; short achievement snippets. New: Dedicated blog post pages with animated content and navigation back to portfolio. Advanced multi-step contact form with clickable buttons and animated transitions, including submission feedback (spinner, success/error messages). Animated, futuristic thank-you pop-up with confetti. Dark gray/black background gradient. Buttons and accent elements use a purple/orange gradient. Fixed, translucent navigation bar with active state indicator. Subtle floating CTA button. Interaction: Smooth scroll navigation, active section highlighting, button click handlers (console log), navigation to/from blog posts, multi-step form navigation, data collection from form, animated submission feedback, pop-up display/dismissal, confetti, scroll-triggered animations for visual flow, subtle hover effects on cards and floating CTA. Justification: A dark, vibrant design with subtle animations creates a dynamic atmosphere. Personal narrative builds trust and credibility. Clear value propositions and achievements encourage exploration and professional connection. The futuristic navigation enhances user experience. The integrated blog posts allow for deeper content engagement. The advanced contact form streamlines inquiries and gathers valuable lead information, with improved user feedback during submission. The celebratory thank-you pop-up provides a strong positive reinforcement. The pervasive subtle CTAs throughout the page gently guide the user towards engagement. Library/Method: HTML/Tailwind CSS for structure and styling. Vanilla JavaScript for scroll-reveal animations, smooth scrolling, active navigation highlighting, floating CTA visibility, multi-page SPA navigation for blog posts, multi-step contact form logic, and thank-you pop-up management. No Chart.js, Plotly.js, or SVG graphics used. -->
+    <!-- Application Structure Plan: The homepage is structured as a professional portfolio for Grady, featuring a prominent Hero section introducing him and his expertise in affiliate sales. This is followed by "My Journey: From Zero to Hero" with an animated timeline and sequential content reveal, then "My Philosophy & Insights", "My AI-Powered Insights", "My Achievements & Milestones", and a final "Contact" section now featuring a multi-step interactive form. A fixed, futuristic navigation bar is included. All interactive buttons now log actions relevant to a portfolio site. Clicking on philosophy/AI feature cards redirects to dedicated, animated blog post pages. The "View Full Portfolio" button now redirects to a new, visually appealing, animated portfolio page. Subtle pointers to connect with Grady are integrated: feature cards have implicit CTAs, the achievements section button hints at more details, and a floating "Connect with Grady" button appears on scroll. A new, animated, futuristic thank-you pop-up with confetti appears after successful contact form submission. Animated, gradient-filled orbs float in the background. -->
+    <!-- Visualization & Content Choices: Summary: The page serves as Grady's personal portfolio for affiliate sales expertise, now with integrated blog posts, an advanced contact form, a dedicated full portfolio page, and a dynamic journey timeline. Goal: To introduce Grady, showcase his knowledge and achievements, provide deeper insights via blog posts and a detailed portfolio, and encourage professional connection through a personalized inquiry process, with a celebratory thank you. Viz/Presentation Method: Large, bold headlines; concise paragraphs; illustrative emojis for features; short achievement snippets. New: Dedicated blog post pages with animated content and navigation back to portfolio. Advanced multi-step contact form with clickable buttons and animated transitions, including submission feedback. Animated, futuristic thank-you pop-up with confetti. Animated, gradient-filled background orbs. New "Full Portfolio" page with animated grid of portfolio item cards with 3D tilt on hover. "My Journey" section with sequential content reveal and a dynamically drawn timeline on canvas. Dark gray/black background gradient. Buttons and accent elements use a purple/orange gradient. Fixed, translucent navigation bar with active state indicator. Subtle floating CTA button. Interaction: Smooth scroll navigation, active section highlighting, button click handlers, navigation to/from blog posts and full portfolio page, multi-step form navigation, data collection from form, animated submission feedback, pop-up display/dismissal, confetti, scroll-triggered animations for visual flow, subtle hover effects on cards and floating CTA, and interactive timeline scrolling. Justification: A dark, vibrant design with subtle animations creates a dynamic atmosphere. Personal narrative builds trust and credibility. Clear value propositions and achievements encourage exploration and professional connection. The futuristic navigation enhances user experience. The integrated blog posts, full portfolio page, and dynamic journey timeline allow for deeper content engagement and storytelling. The advanced contact form streamlines inquiries and gathers valuable lead information, with improved user feedback during submission. The celebratory thank-you pop-up provides a strong positive reinforcement. The pervasive subtle CTAs throughout the page gently guide the user towards engagement. Animated background adds a "wow" factor and reinforces the futuristic theme. Library/Method: HTML/Tailwind CSS for structure and styling. Vanilla JavaScript for scroll-reveal animations, smooth scrolling, active navigation highlighting, floating CTA visibility, multi-page SPA navigation for blog posts and portfolio page, multi-step contact form logic, thank-you pop-up management, and dynamic canvas drawing for the timeline. No Chart.js, Plotly.js, or SVG graphics used. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Floating Orbs Background -->
+    <div class="floating-orb orb-size-lg orb-pos-1"></div>
+    <div class="floating-orb orb-size-md orb-pos-2"></div>
+    <div class="floating-orb orb-size-sm orb-pos-3"></div>
+    <div class="floating-orb orb-size-lg orb-pos-4"></div>
+    <div class="floating-orb orb-size-md orb-pos-5"></div>
 
     <!-- Futuristic Navigation Bar -->
     <nav class="futuristic-nav fixed top-0 left-0 right-0 z-50 py-4 px-6 flex items-center justify-between">
-        <div class="text-2xl font-black text-white">Grady<span class="text-[#FF8C00]">James</span></div>
+        <div class="text-2xl font-black text-white">Grady's<span class="text-[#FF8C00]">Portfolio</span></div>
         <div class="space-x-6 hidden md:flex">
             <a href="#hero" class="nav-link-futuristic active" data-section="hero">Home</a>
+            <a href="#my-journey" class="nav-link-futuristic" data-section="my-journey">My Journey</a>
             <a href="#my-philosophy" class="nav-link-futuristic" data-section="my-philosophy">My Philosophy</a>
+            <a href="#my-ai-insights" class="nav-link-futuristic" data-section="my-ai-insights">AI Insights</a>
             <a href="#my-achievements" class="nav-link-futuristic" data-section="my-achievements">Achievements</a>
             <a href="#cta" class="nav-link-futuristic" data-section="cta">Contact</a>
         </div>
@@ -412,10 +563,10 @@
     <!-- Main Portfolio Content Wrapper -->
     <div id="portfolio-content-wrapper">
         <!-- Hero Section -->
-        <header id="hero" class="py-20 md:py-32 text-center overflow-hidden animated-hero-bg">
+        <header id="hero" class="py-20 md:py-32 text-center overflow-hidden">
             <div class="container">
                 <h1 class="text-5xl md:text-7xl font-black text-white leading-tight mb-6 tracking-tight reveal-on-scroll">
-                    Hi, I'm Grady! <br> My <span class="text-[#FF8C00]">Heres my Journey In Affiliate Sales</span>
+                    Hi, I'm Grady! <br> My <span class="text-[#FF8C00]">Journey in Affiliate Sales</span>
                 </h1>
                 <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto reveal-on-scroll delay-200">
                     I've navigated the world of online sales. Explore my insights and achievements in building digital revenue streams.
@@ -425,6 +576,53 @@
                 </button>
             </div>
         </header>
+
+        <!-- My Journey: From Zero to Hero Section (NEW) -->
+        <section id="my-journey" class="py-16 md:py-24 relative">
+            <h2 class="text-4xl font-bold text-white text-center mb-12 reveal-on-scroll">My Journey: <span class="text-[#8A2BE2]">From Zero to Hero</span></h2>
+            <p class="text-xl text-gray-200 mb-10 max-w-3xl mx-auto reveal-on-scroll delay-200">
+                A visual timeline of my path in affiliate marketing, highlighting key milestones and growth.
+            </p>
+
+            <div class="relative flex flex-col items-center py-12">
+                <canvas id="timelineCanvas" class="absolute"></canvas>
+                
+                <!-- Journey Step 1 -->
+                <div class="journey-step w-full md:w-1/2 my-8 reveal-on-scroll" data-journey-index="0">
+                    <div class="emoji">🌱</div>
+                    <h3>The Spark: Discovering Affiliate Marketing</h3>
+                    <p>My initial foray into online sales, learning the basics and understanding the potential of digital revenue streams.</p>
+                </div>
+
+                <!-- Journey Step 2 -->
+                <div class="journey-step w-full md:w-1/2 my-8 reveal-on-scroll" data-journey-index="1">
+                    <div class="emoji">💡</div>
+                    <h3>First Breakthrough: Achieving $5K Sales</h3>
+                    <p>The moment consistent effort paid off, hitting my first significant sales milestone and validating my strategies.</p>
+                </div>
+
+                <!-- Journey Step 3 -->
+                <div class="journey-step w-full md:w-1/2 my-8 reveal-on-scroll" data-journey-index="2">
+                    <div class="emoji">🚀</div>
+                    <h3>Scaling Up: Beyond Initial Success</h3>
+                    <p>Implementing advanced traffic strategies and funnel optimizations to expand operations and grow revenue exponentially.</p>
+                </div>
+
+                <!-- Journey Step 4 -->
+                <div class="journey-step w-full md:w-1/2 my-8 reveal-on-scroll" data-journey-index="3">
+                    <div class="emoji">🤖</div>
+                    <h3>AI Integration: The New Frontier</h3>
+                    <p>Incorporating Artificial Intelligence into targeting, content, and analytics for a competitive edge and smarter decision-making.</p>
+                </div>
+
+                <!-- Journey Step 5 -->
+                <div class="journey-step w-full md:w-1/2 my-8 reveal-on-scroll" data-journey-index="4">
+                    <div class="emoji">🌟</div>
+                    <h3>Current Vision: Guiding Others to Success</h3>
+                    <p>Now, my focus is on sharing these insights and helping others navigate their own affiliate marketing journeys.</p>
+                </div>
+            </div>
+        </section>
 
         <!-- My Philosophy & Insights Section -->
         <section id="my-philosophy" class="py-16 md:py-24">
@@ -459,11 +657,47 @@
             </div>
         </section>
 
+        <!-- My AI-Powered Affiliate Sales Insights Section -->
+        <section id="my-ai-insights" class="py-16 md:py-24">
+            <div class="container">
+                <h2 class="text-4xl font-bold text-white text-center mb-12 reveal-on-scroll">My <span class="text-[#FF8C00]">AI-Powered</span> Affiliate Sales Insights</h2>
+                <p class="text-xl text-gray-200 mb-10 max-w-3xl mx-auto reveal-on-scroll delay-200">
+                    Discover how I leverage cutting-edge Artificial Intelligence to gain a competitive edge in affiliate marketing.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="feature-card text-center reveal-on-scroll delay-200">
+                        <div class="text-5xl mb-4">🤖</div>
+                        <h3 class="text-2xl font-semibold text-white mb-3">AI for Hyper-Targeted Ads</h3>
+                        <p class="text-gray-300 mb-4">
+                            Utilizing AI algorithms to pinpoint ideal audiences and optimize ad spend for maximum conversion.
+                        </p>
+                        <button class="text-[#FF8C00] font-medium text-sm hover:underline feature-cta" data-target-blog="blog-ai-ads">Learn More</button>
+                    </div>
+                    <div class="feature-card text-center reveal-on-scroll delay-400">
+                        <div class="text-5xl mb-4">✍️</div>
+                        <h3 class="text-2xl font-semibold text-white mb-3">AI-Driven Content Creation</h3>
+                        <p class="text-gray-300 mb-4">
+                            How AI assists in generating compelling ad copy, engaging blog posts, and persuasive product reviews.
+                        </p>
+                        <button class="text-[#FF8C00] font-medium text-sm hover:underline feature-cta" data-target-blog="blog-ai-content">View My Process</button>
+                    </div>
+                    <div class="feature-card text-center reveal-on-scroll delay-600">
+                        <div class="text-5xl mb-4">🔮</div>
+                        <h3 class="text-2xl font-semibold text-white mb-3">Predictive Analytics with AI</h3>
+                        <p class="text-gray-300 mb-4">
+                            Using AI to forecast market trends, predict consumer behavior, and identify emerging opportunities.
+                        </p>
+                        <button class="text-[#FF8C00] font-medium text-sm hover:underline feature-cta" data-target-blog="blog-ai-predictive">Explore Insights</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- My Achievements & Milestones Section -->
         <section id="my-achievements" class="py-16 md:py-24">
             <div class="container">
                 <h2 class="text-4xl font-bold text-white text-center mb-12 reveal-on-scroll">My Achievements & Milestones</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="achievement-card reveal-on-scroll delay-200">
                         <div class="text-6xl mb-4">💰</div>
                         <h3 class="text-2xl font-semibold text-white mb-2">Achieved $5K in Sales!</h3>
@@ -646,24 +880,297 @@
         </div>
     </div>
 
-    <!-- Thank You Pop-up Overlay -->
-    <div id="thank-you-popup-overlay" class="thank-you-popup-overlay">
-        <div id="thank-you-popup-content" class="thank-you-popup-content">
-            <button class="popup-close-btn" id="popup-close-btn">×</button>
-            <div class="text-6xl mb-4">✨</div>
-            <h3 class="text-3xl font-bold text-white mb-3">Message Sent!</h3>
-            <p class="text-gray-300 mb-6">
-                Thanks for reaching out! I've received your inquiry and will get back to you as soon as possible.
+    <div id="blog-ai-ads" class="blog-page">
+        <div class="blog-content reveal-on-scroll">
+            <h2>AI for Hyper-Targeted Ads</h2>
+            <p>
+                Artificial Intelligence has revolutionized how we approach online advertising. Gone are the days of broad targeting and guesswork. By leveraging AI, I can analyze vast datasets to identify precise audience segments, predict their behavior, and deliver highly personalized ad experiences. This not only maximizes conversion rates but also significantly optimizes ad spend, ensuring every dollar works harder.
             </p>
-            <button class="btn-primary" onclick="window.location.reload();">Return to Portfolio</button>
+            <p>
+                My strategies include:
+            </p>
+            <ul class="list-disc list-inside">
+                <li>**Audience AI-Profiling:** Creating detailed profiles of ideal customers based on demographics, psychographics, and online behavior.</li>
+                <li>**Dynamic Ad Creative Optimization:** Using AI to test and adapt ad visuals and copy in real-time for peak performance.</li>
+                <li>**Automated Bid Management:** Letting AI optimize bids across platforms to get the best results for the lowest cost.</li>
+                <li>**Predictive Audience Expansion:** Identifying new, high-potential audiences based on AI-driven insights from existing successful campaigns.</li>
+            </ul>
+            <p>
+                AI isn't just a tool; it's a strategic partner in achieving unparalleled ad efficiency.
+            </p>
+            <button class="back-btn" data-target-page="portfolio-content-wrapper">Back to Portfolio</button>
         </div>
     </div>
 
+    <div id="blog-ai-content" class="blog-page">
+        <div class="blog-content reveal-on-scroll">
+            <h2>AI-Driven Content Creation for Engagement</h2>
+            <p>
+                Content is king, but creating compelling, high-volume content can be a bottleneck. AI has become an invaluable asset in streamlining content creation, allowing me to generate engaging ad copy, persuasive product reviews, and informative blog posts with remarkable efficiency. This frees up time to focus on strategy and high-level oversight, ensuring quality and relevance.
+            </p>
+            <p>
+                My use of AI in content creation involves:
+            </p>
+            <ul class="list-disc list-inside">
+                <li>**Automated Copywriting:** Generating multiple variations of headlines, ad descriptions, and calls-to-action for A/B testing.</li>
+                <li>**Topic Research & Outlining:** Using AI to identify trending topics and structure comprehensive content outlines.</li>
+                <li>**Personalized Messaging:** Crafting content that resonates deeply with specific audience segments identified by AI.</li>
+                <li>**Grammar & Style Optimization:** Ensuring content is polished, professional, and optimized for readability and SEO.</li>
+            </ul>
+            <p>
+                AI doesn't replace creativity; it amplifies it, allowing for more impactful and scalable content strategies.
+            </p>
+            <button class="back-btn" data-target-page="portfolio-content-wrapper">Back to Portfolio</button>
+        </div>
+    </div>
+
+    <div id="blog-ai-predictive" class="blog-page">
+        <div class="blog-content reveal-on-scroll">
+            <h2>Predictive Analytics with AI for Future-Proofing</h2>
+            <p>
+                The affiliate marketing landscape is constantly evolving. Relying solely on past performance is no longer enough. By integrating AI-powered predictive analytics, I can anticipate market shifts, identify emerging trends, and forecast consumer behavior with a degree of accuracy previously impossible. This allows for proactive strategy adjustments, ensuring I'm always ahead of the curve.
+            </p>
+            <p>
+                Key applications of predictive AI include:
+            </p>
+            <ul class="list-disc list-inside">
+                <li>**Trend Forecasting:** Identifying up-and-coming niches and product categories before they become saturated.</li>
+                <li>**Consumer Behavior Prediction:** Anticipating purchasing patterns and demand fluctuations to optimize inventory and campaign timing.</li>
+                <li>**Risk Assessment:** Analyzing potential campaign pitfalls and market volatilities to mitigate risks.</li>
+                <li>**Performance Projections:** Generating accurate revenue and ROI forecasts to inform strategic planning and investment decisions.</li>
+            </ul>
+            <p>
+                Predictive AI isn't just about seeing the future; it's about shaping it through informed, proactive decisions.
+            </p>
+            <button class="back-btn" data-target-page="portfolio-content-wrapper">Back to Portfolio</button>
+        </div>
+    </div>
+
+    <!-- Full Portfolio Page (NEW) -->
+    <div id="full-portfolio-page" class="portfolio-page">
+        <div class="container py-16">
+            <h1 class="text-5xl md:text-6xl font-black text-white leading-tight mb-6 reveal-on-scroll">
+                My Full <span class="text-[#FF8C00]">Affiliate Portfolio</span>
+            </h1>
+            <p class="text-xl text-gray-200 mb-12 max-w-3xl mx-auto reveal-on-scroll delay-200">
+                A deeper dive into my key projects, strategies, and the measurable results I've achieved in affiliate sales.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item-card reveal-on-scroll delay-200">
+                    <div class="icon">📈</div>
+                    <h3>Project: High-Ticket Funnel Optimization</h3>
+                    <p>Revamped a complex sales funnel for a high-value software product, focusing on lead nurturing and conversion rate optimization.</p>
+                    <div class="metrics">Result: 45% Conversion Rate Increase</div>
+                    <button class="text-[#FF8C00] font-medium text-sm hover:underline mt-4" data-target-case-study="case-study-funnel-optimization">View Case Study</button>
+                </div>
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item-card reveal-on-scroll delay-300">
+                    <div class="icon">💰</div>
+                    <h3>Campaign: Niche Product Launch (Q3 2024)</h3>
+                    <p>Successfully launched an affiliate campaign for a specialized niche product, achieving rapid market penetration and profitability.</p>
+                    <div class="metrics">Result: $10K Revenue in First Month</div>
+                    <button class="text-[#FF8C00] font-medium text-sm hover:underline mt-4" data-target-case-study="case-study-niche-launch">View Case Study</button>
+                </div>
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item-card reveal-on-scroll delay-400">
+                    <div class="icon">📊</div>
+                    <h3>Strategy: Advanced Ad Spend Allocation</h3>
+                    <p>Developed and implemented an AI-assisted strategy for dynamic ad budget allocation across multiple platforms.</p>
+                    <div class="metrics">Result: 2.5x ROAS Improvement</div>
+                    <button class="text-[#FF8C00] font-medium text-sm hover:underline mt-4" data-target-case-study="case-study-ad-spend">View Case Study</button>
+                </div>
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-item-card reveal-on-scroll delay-500">
+                    <div class="icon">🌐</div>
+                    <h3>Expansion: International Market Entry</h3>
+                    <p>Led the strategic expansion of affiliate campaigns into new international territories, adapting content and targeting for cultural relevance.</p>
+                    <div class="metrics">Result: 2 New Profitable Markets</div>
+                    <button class="text-[#FF8C00] font-medium text-sm hover:underline mt-4" data-target-case-study="case-study-international-expansion">View Case Study</button>
+                </div>
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-item-card reveal-on-scroll delay-600">
+                    <div class="icon">✍️</div>
+                    <h3>Content: AI-Enhanced Review Generation</h3>
+                    <p>Implemented AI tools to generate high-quality, SEO-optimized product reviews, significantly increasing organic traffic and conversions.</p>
+                    <div class="metrics">Result: 150% Organic Traffic Growth</div>
+                    <button class="text-[#FF8C00] font-medium text-sm hover:underline mt-4" data-target-case-study="case-study-ai-reviews">View Case Study</button>
+                </div>
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-item-card reveal-on-scroll delay-700">
+                    <div class="icon">🧠</div>
+                    <h3>Consultation: Client Funnel Audit</h3>
+                    <p>Conducted a comprehensive audit for a client's existing affiliate funnel, providing actionable recommendations for improvement.</p>
+                    <div class="metrics">Result: Client Sales Increased by 20%</div>
+                    <button class="text-[#FF8C00] font-medium text-sm hover:underline mt-4" data-target-case-study="case-study-client-audit">View Case Study</button>
+                </div>
+            </div>
+
+            <button id="back-to-main-portfolio-btn" class="back-btn" data-target-page="portfolio-content-wrapper">Back to Main Portfolio</button>
+        </div>
+    </div>
+
+    <!-- Case Study Pages (Initially Hidden) -->
+    <div id="case-study-funnel-optimization" class="case-study-page">
+        <div class="case-study-content reveal-on-scroll">
+            <h2>Case Study: High-Ticket Funnel Optimization 📈</h2>
+            <p class="text-gray-300">
+                **Challenge:** A client was struggling with a low conversion rate on a high-value software product, despite decent traffic. The existing funnel felt disjointed and failed to adequately nurture leads.
+            </p>
+            <p class="text-gray-300">
+                **Strategy:** My approach involved a multi-faceted optimization strategy:
+            </p>
+            <ul class="list-disc list-inside text-gray-300">
+                <li>**A/B Testing Landing Pages:** Implemented rigorous testing of different headlines, value propositions, and calls-to-action.</li>
+                <li>**Optimizing Lead Magnet:** Refined the initial free resource to be more aligned with the high-ticket offer, attracting higher-quality leads.</li>
+                <li>**Email Nurturing Sequences:** Developed a sophisticated email automation sequence, providing educational content and addressing common objections over several days.</li>
+                <li>**Retargeting Ads:** Launched highly segmented retargeting campaigns to re-engage visitors who didn't convert immediately.</li>
+            </ul>
+            <p class="text-gray-300">
+                **Results:** Within three months, the client saw a **45% increase in conversion rate** for their high-ticket product. This also led to a significant increase in average order value due to better-qualified leads.
+            </p>
+            <p class="text-gray-300">
+                **Key Learnings:** The importance of multi-touch attribution and the immense power of personalized, value-driven follow-ups in high-ticket affiliate sales.
+            </p>
+            <button class="back-btn" data-target-page="full-portfolio-page">Back to Full Portfolio</button>
+        </div>
+    </div>
+
+    <div id="case-study-niche-launch" class="case-study-page">
+        <div class="case-study-content reveal-on-scroll">
+            <h2>Case Study: Niche Product Launch (Q3 2024) 💰</h2>
+            <p class="text-gray-300">
+                **Challenge:** Identifying and successfully breaking into a new, highly specific niche with a relatively unknown affiliate product. The goal was rapid market penetration and profitability.
+            </p>
+            <p class="text-gray-300">
+                **Strategy:** My strategy focused on deep market understanding and agile execution:
+            </p>
+            <ul class="list-disc list-inside text-gray-300">
+                <li>**Deep Market Research:** Conducted extensive research to understand the specific pain points and desires of the micro-niche audience.</li>
+                <li>**Micro-Influencer Collaboration:** Partnered with small, highly engaged influencers within the niche for authentic promotion.</li>
+                <li>**Targeted Ad Campaigns:** Developed hyper-focused ad campaigns on TikTok and Instagram, utilizing precise interest and behavioral targeting.</li>
+                <li>**Dedicated Pre-Launch List:** Built anticipation and a warm audience through a dedicated lead magnet and email sequence prior to the main launch.</li>
+            </ul>
+            <p class="text-gray-300">
+                **Results:** The campaign generated **$10,000 in revenue within the first month**, establishing a strong foothold and achieving significant market share in the targeted niche.
+            </p>
+            <p class="text-gray-300">
+                **Key Learnings:** The immense power of niche specificity, the value of authentic influencer partnerships, and the speed of rapid testing for ad creatives.
+            </p>
+            <button class="back-btn" data-target-page="full-portfolio-page">Back to Full Portfolio</button>
+        </div>
+    </div>
+
+    <div id="case-study-ad-spend" class="case-study-page">
+        <div class="case-study-content reveal-on-scroll">
+            <h2>Case Study: Advanced Ad Spend Allocation 📊</h2>
+            <p class="text-gray-300">
+                **Challenge:** Managing ad spend across multiple platforms (Facebook, Google, TikTok) was leading to diminishing returns and inefficient budget allocation. The goal was to maximize ROAS (Return On Ad Spend).
+            </p>
+            <p class="text-gray-300">
+                **Strategy:** I developed and implemented a sophisticated, AI-assisted strategy for dynamic ad budget allocation:
+            </p>
+            <ul class="list-disc list-inside text-gray-300">
+                <li>**Real-time Performance Monitoring:** Integrated advanced tracking tools to collect live data on campaign performance across all platforms.</li>
+                <li>**AI-Assisted Dynamic Budgeting:** Utilized custom scripts and AI insights to automatically shift budget towards the highest-performing campaigns and platforms in real-time.</li>
+                <li>**Cross-Platform Optimization:** Analyzed audience overlap and conversion paths to optimize ad delivery holistically, rather than in silos.</li>
+                <li>**Automated A/B Testing:** Continuously tested ad creatives, audiences, and placements, with AI guiding the most promising variations.</li>
+            </ul>
+            <p class="text-gray-300">
+                **Results:** This strategy led to a remarkable **2.5x improvement in overall ROAS** and a **20% reduction in Cost Per Acquisition (CPA)** across all active campaigns.
+            </p>
+            <p class="text-gray-300">
+                **Key Learnings:** The critical role of automation in achieving ad efficiency at scale and the necessity of a holistic, data-driven approach to multi-platform advertising.
+            </p>
+            <button class="back-btn" data-target-page="full-portfolio-page">Back to Full Portfolio</button>
+        </div>
+    </div>
+
+    <div id="case-study-international-expansion" class="case-study-page">
+        <div class="case-study-content reveal-on-scroll">
+            <h2>Case Study: International Market Entry 🌐</h2>
+            <p class="text-gray-300">
+                **Challenge:** Expanding profitable affiliate campaigns beyond domestic borders into new international territories, particularly non-English speaking markets, presented unique challenges in cultural relevance and audience targeting.
+            </p>
+            <p class="text-gray-300">
+                **Strategy:** My approach focused on meticulous localization and strategic testing:
+            </p>
+            <ul class="list-disc list-inside text-gray-300">
+                <li>**Localized Ad Copy & Creatives:** Collaborated with native speakers to translate and culturally adapt all ad copy, visuals, and messaging.</li>
+                <li>**Translated Landing Pages:** Ensured all landing pages and offer pages were fully translated and optimized for the local language and user experience.</li>
+                <li>**Cultural Sensitivity Research:** Conducted in-depth research into local customs, consumer behaviors, and market nuances to avoid missteps and build trust.</li>
+                <li>**New Ad Network Testing:** Explored and tested region-specific ad networks and platforms to reach target audiences effectively.</li>
+            </ul>
+            <p class="text-gray-300">
+                **Results:** Successfully launched and scaled campaigns in **2 new profitable international markets**, leading to a significant increase in overall global revenue and brand reach.
+            </p>
+            <p class="text-gray-300">
+                **Key Learnings:** The paramount importance of cultural nuance in marketing, the value of native content, and the strategic patience required for international expansion.
+            </p>
+            <button class="back-btn" data-target-page="full-portfolio-page">Back to Full Portfolio</button>
+        </div>
+    </div>
+
+    <div id="case-study-ai-reviews" class="case-study-page">
+        <div class="case-study-content reveal-on-scroll">
+            <h2>Case Study: AI-Enhanced Review Generation ✍️</h2>
+            <p class="text-gray-300">
+                **Challenge:** The demand for unique, high-quality product reviews to drive organic traffic was growing, but the manual content creation process was slow, costly, and difficult to scale.
+            </p>
+            <p class="text-gray-300">
+                **Strategy:** I implemented a hybrid approach, leveraging AI tools to accelerate content generation while maintaining human oversight for quality and authenticity:
+            </p>
+            <ul class="list-disc list-inside text-gray-300">
+                <li>**AI for Initial Drafts:** Utilized advanced AI writing tools to generate initial drafts of product reviews, focusing on key features, benefits, and common user queries.</li>
+                <li>**Human Editing & Nuance:** Critical human review and editing were applied to infuse authenticity, personal experience, and subtle persuasive language that AI alone cannot replicate.</li>
+                <li>**SEO Optimization:** AI assisted in keyword research and on-page SEO optimization, ensuring reviews ranked highly in search results.</li>
+                <li>**Scalable Content Pipeline:** Established a streamlined workflow that allowed for the rapid production of a high volume of quality reviews.</li>
+            </ul>
+            <p class="text-gray-300">
+                **Results:** This strategy led to a **150% increase in organic traffic** to review pages and a **50% reduction in content creation time and cost**, significantly boosting affiliate conversions.
+            </p>
+            <p class="text-gray-300">
+                **Key Learnings:** AI serves as a powerful content accelerator, but balancing automation with human creativity and authenticity is crucial for long-term success.
+            </p>
+            <button class="back-btn" data-target-page="full-portfolio-page">Back to Full Portfolio</button>
+        </div>
+    </div>
+
+    <div id="case-study-client-audit" class="case-study-page">
+        <div class="case-study-content reveal-on-scroll">
+            <h2>Case Study: Client Funnel Audit 🧠</h2>
+            <p class="text-gray-300">
+                **Challenge:** A client approached me with stagnant affiliate sales and an inability to identify the bottlenecks within their existing marketing funnel. They needed clear, actionable recommendations.
+            </p>
+            <p class="text-gray-300">
+                **Strategy:** I conducted a comprehensive, end-to-end audit of their entire affiliate marketing funnel:
+            </p>
+            <ul class="list-disc list-inside text-gray-300">
+                <li>**Traffic Source Analysis:** Evaluated the quality and targeting of their incoming traffic.</li>
+                <li>**Landing Page Conversion Audit:** Performed a detailed analysis of their landing page design, copy, and user experience for conversion roadblocks.</li>
+                <li>**Offer Suitability Assessment:** Reviewed the affiliate products/services they were promoting for market fit and commission structure.</li>
+                <li>**Follow-Up Sequence Review:** Examined their email marketing and retargeting strategies for missed opportunities.</li>
+                <li>**Actionable Recommendations:** Provided a prioritized list of specific, implementable changes with clear expected outcomes.</li>
+            </ul>
+            <p class="text-300">
+                **Results:** Within three months of implementing the recommendations, the client reported a **20% increase in their affiliate sales revenue**, along with a clearer understanding of their funnel's performance.
+            </p>
+            <p class="text-gray-300">
+                **Key Learnings:** The power of a fresh, expert perspective in diagnosing complex marketing problems and the value of clear, data-backed strategic communication.
+            </p>
+            <button class="back-btn" data-target-page="full-portfolio-page">Back to Full Portfolio</button>
+        </div>
+    </div>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Main content wrapper and blog page elements
+            // Main content wrapper and page elements
             const portfolioContentWrapper = document.getElementById('portfolio-content-wrapper');
             const blogPages = document.querySelectorAll('.blog-page');
+            const fullPortfolioPage = document.getElementById('full-portfolio-page');
+            const caseStudyPages = document.querySelectorAll('.case-study-page');
 
             // Contact Form Elements
             const contactForm = document.getElementById('contact-form');
@@ -689,6 +1196,12 @@
             const thankYouPopupOverlay = document.getElementById('thank-you-popup-overlay');
             const thankYouPopupContent = document.getElementById('thank-you-popup-content');
             const popupCloseBtn = document.getElementById('popup-close-btn');
+
+            // Journey Timeline Elements
+            const timelineCanvas = document.getElementById('timelineCanvas');
+            const journeySteps = document.querySelectorAll('.journey-step');
+            let ctx = null;
+            let dotPositions = []; // To store the Y positions of each dot
 
             function showContactStep(stepIndex) {
                 contactFormSteps.forEach((step, index) => {
@@ -745,19 +1258,19 @@
 
             // Attach event listeners for contact form preference buttons
             document.querySelectorAll('#contact-form .contact-option-button').forEach(button => {
-                if (button) { // Safety check
+                if (button) {
                     button.addEventListener('click', (event) => updateContactPreferences(event.target));
                 }
             });
 
             // Handle contact form navigation
-            if (contactForm) { // Safety check
+            if (contactForm) {
                 contactForm.addEventListener('click', (event) => {
                     if (event.target.dataset.action === 'next-contact') {
                         // Basic validation for current step before moving next
                         if (currentContactStep === 0 && contactFormResponses.interests.length === 0) {
                             contactMessageDisplay.innerHTML = 'Please select at least one option. ⚠️';
-                            contactMessageDisplay.style.color = '#FF4500'; /* OrangeRed for error */
+                            contactMessageDisplay.style.color = '#FF4500';
                             return;
                         }
                         if (currentContactStep === 1 && contactFormResponses.goals.length === 0) {
@@ -770,11 +1283,11 @@
                             contactMessageDisplay.style.color = '#FF4500';
                             return;
                         }
-                        contactMessageDisplay.innerHTML = ''; // Clear message on success
+                        contactMessageDisplay.innerHTML = '';
                         currentContactStep++;
                         showContactStep(currentContactStep);
                     } else if (event.target.dataset.action === 'prev-contact') {
-                        contactMessageDisplay.innerHTML = ''; // Clear message
+                        contactMessageDisplay.innerHTML = '';
                         currentContactStep--;
                         showContactStep(currentContactStep);
                     }
@@ -800,21 +1313,21 @@
                     }
 
                     // Show processing animation
-                    if (finalContactSubmitBtn) { // Safety check
+                    if (finalContactSubmitBtn) {
                         finalContactSubmitBtn.disabled = true;
                     }
                     contactMessageDisplay.innerHTML = `Sending inquiry... <div class="spinner"></div>`;
-                    contactMessageDisplay.style.color = '#B0B0B0'; /* Gray for processing */
+                    contactMessageDisplay.style.color = '#B0B0B0';
 
 
                     // Simulate submission
                     setTimeout(() => {
                         console.log('Contact Form Submitted:', contactFormResponses);
-                        contactMessageDisplay.innerHTML = 'Inquiry sent! ✅'; // Brief inline success message
-                        contactMessageDisplay.style.color = '#8A2BE2'; /* Purple for success */
-                        contactForm.reset(); // Clear the form
-                        if (finalContactSubmitBtn) { // Safety check
-                            finalContactSubmitBtn.disabled = false; // Re-enable button
+                        contactMessageDisplay.innerHTML = 'Inquiry sent! ✅';
+                        contactMessageDisplay.style.color = '#8A2BE2';
+                        contactForm.reset();
+                        if (finalContactSubmitBtn) {
+                            finalContactSubmitBtn.disabled = false;
                         }
 
                         // Trigger the thank you pop-up
@@ -824,51 +1337,51 @@
                         setTimeout(() => {
                             currentContactStep = 0;
                             showContactStep(currentContactStep);
-                            contactMessageDisplay.innerHTML = ''; // Clear success message after a delay
-                        }, 3000); // Reset form after 3 seconds
-                    }, 2000); // Simulate 2-second submission time
+                            contactMessageDisplay.innerHTML = '';
+                        }, 3000);
+                    }, 2000);
                 });
             }
 
 
             // --- Thank You Pop-up Logic ---
             function showThankYouPopup() {
-                if (thankYouPopupOverlay) { // Safety check
+                if (thankYouPopupOverlay) {
                     thankYouPopupOverlay.classList.add('active');
-                    if (thankYouPopupContent) { // Safety check
-                        createConfetti(thankYouPopupContent); // Pass content div to spawn confetti within
+                    if (thankYouPopupContent) {
+                        createConfetti(thankYouPopupContent);
                     }
                 }
             }
 
             function hideThankYouPopup() {
-                if (thankYouPopupOverlay) { // Safety check
+                if (thankYouPopupOverlay) {
                     thankYouPopupOverlay.classList.remove('active');
-                    if (thankYouPopupContent) { // Safety check
+                    if (thankYouPopupContent) {
                         // Clear existing confetti
                         thankYouPopupContent.querySelectorAll('.popup-confetti').forEach(c => c.remove());
                     }
                 }
             }
 
-            if (popupCloseBtn) { // Safety check for the button itself
+            if (popupCloseBtn) {
                 popupCloseBtn.addEventListener('click', hideThankYouPopup);
             }
-            if (thankYouPopupOverlay) { // Safety check for the overlay
+            if (thankYouPopupOverlay) {
                 thankYouPopupOverlay.addEventListener('click', (e) => {
-                    if (e.target === thankYouPopupOverlay) { // Only close if clicking the overlay, not the content
+                    if (e.target === thankYouPopupOverlay) {
                         hideThankYouPopup();
                     }
                 });
             }
 
             function createConfetti(containerElement) {
-                const colors = ['#FFD700', '#FF4500', '#8A2BE2', '#00BFFF', '#FF69B4']; // Gold, Tomato, BlueViolet, DeepSkyBlue, HotPink
+                const colors = ['#FFD700', '#FF4500', '#8A2BE2', '#00BFFF', '#FF69B4'];
                 for (let i = 0; i < 50; i++) {
                     const confetti = document.createElement('div');
                     confetti.classList.add('popup-confetti');
                     confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.top = Math.random() * -50 + 'px'; // Start above the popup
+                    confetti.style.top = Math.random() * -50 + 'px';
                     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     confetti.style.animationDelay = Math.random() * 2 + 's';
                     confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
@@ -879,28 +1392,41 @@
 
 
             // --- Navigation Logic ---
+            // Function to show a specific page and hide others
+            function showPage(pageId) {
+                const allPages = [portfolioContentWrapper, fullPortfolioPage, ...blogPages, ...caseStudyPages];
+                allPages.forEach(page => {
+                    if (page && page.id === pageId) {
+                        page.style.display = 'block';
+                        window.scrollTo(0, 0); // Scroll to top of the new page
+                        // Re-observe elements on the new page for reveal animation
+                        const newRevealElements = page.querySelectorAll('.reveal-on-scroll');
+                        newRevealElements.forEach(el => revealObserver.observe(el));
+                    } else if (page) {
+                        page.style.display = 'none';
+                    }
+                });
+            }
+
             // Smooth scrolling for navigation links
             document.querySelectorAll('nav a.nav-link-futuristic').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    // Hide any active blog pages first
-                    blogPages.forEach(page => page.style.display = 'none');
-                    if (portfolioContentWrapper) { // Safety check
-                        portfolioContentWrapper.style.display = 'block'; // Ensure main content is visible
-                    }
-
                     const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        const headerOffset = document.querySelector('nav').offsetHeight;
-                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                        const offsetPosition = elementPosition - headerOffset - 20;
+                    showPage('portfolio-content-wrapper'); // Always go back to main portfolio wrapper first
+                    setTimeout(() => { // Then scroll to section after main page is visible
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            const headerOffset = document.querySelector('nav').offsetHeight;
+                            const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                            const offsetPosition = elementPosition - headerOffset - 20;
 
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 50); // Small delay to ensure display:block takes effect
                 });
             });
 
@@ -936,20 +1462,10 @@
                 button.addEventListener('click', function() {
                     const targetBlogId = this.dataset.targetBlog;
                     if (targetBlogId) {
-                        if (portfolioContentWrapper) { // Safety check
-                            portfolioContentWrapper.style.display = 'none'; // Hide main content
-                        }
-                        const targetBlogPage = document.getElementById(targetBlogId);
-                        if (targetBlogPage) {
-                            targetBlogPage.style.display = 'block'; // Show specific blog page
-                            window.scrollTo(0, 0); // Scroll to top of blog page
-                            // Re-observe elements on the new page for reveal animation
-                            const newRevealElements = targetBlogPage.querySelectorAll('.reveal-on-scroll');
-                            newRevealElements.forEach(el => revealObserver.observe(el));
-                        }
+                        showPage(targetBlogId);
                         console.log(`Navigating to blog post: ${targetBlogId}`);
                     } else {
-                        const feature = this.dataset.feature; // Fallback for other CTA types
+                        const feature = this.dataset.feature;
                         console.log(`Feature card CTA for "${feature}" clicked. This would lead to more detailed content about that philosophy point.`);
                     }
                 });
@@ -958,16 +1474,31 @@
             document.querySelectorAll('.back-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     const targetPageId = this.dataset.targetPage;
-                    if (targetPageId === 'portfolio-content-wrapper') {
-                        blogPages.forEach(page => page.style.display = 'none'); // Hide all blog pages
-                        if (portfolioContentWrapper) { // Safety check
-                            portfolioContentWrapper.style.display = 'block'; // Show main content
-                        }
-                        window.scrollTo(0, 0); // Scroll to top of main content
-                        console.log('Navigating back to portfolio.');
+                    showPage(targetPageId);
+                    console.log(`Navigating back to ${targetPageId}.`);
+                });
+            });
+
+            // --- Full Portfolio Page Navigation ---
+            const seeMoreAchievementsBtn = document.getElementById('see-more-achievements-btn');
+            if (seeMoreAchievementsBtn) {
+                seeMoreAchievementsBtn.addEventListener('click', () => {
+                    showPage('full-portfolio-page');
+                    console.log('Navigating to full portfolio page.');
+                });
+            }
+
+            // --- Case Study Page Navigation ---
+            document.querySelectorAll('.portfolio-item-card button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetCaseStudyId = this.dataset.targetCaseStudy;
+                    if (targetCaseStudyId) {
+                        showPage(targetCaseStudyId);
+                        console.log(`Navigating to case study: ${targetCaseStudyId}`);
                     }
                 });
             });
+
 
             // --- Scroll-triggered animations for elements ---
             const revealElements = document.querySelectorAll('.reveal-on-scroll');
@@ -990,17 +1521,10 @@
 
             // --- Other Button interactivity (console logs for connecting) ---
             const exploreMyJourneyBtn = document.getElementById('explore-my-journey-btn');
-            if (exploreMyJourneyBtn) { // Safety check
+            if (exploreMyJourneyBtn) {
                 exploreMyJourneyBtn.addEventListener('click', () => {
                     console.log('Hero: "Explore My Portfolio" button clicked. This would scroll down to "My Philosophy" section.');
                     document.getElementById('my-philosophy').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            }
-
-            const seeMoreAchievementsBtn = document.getElementById('see-more-achievements-btn');
-            if (seeMoreAchievementsBtn) { // Safety check
-                seeMoreAchievementsBtn.addEventListener('click', () => {
-                    console.log('My Achievements: "View Full Portfolio" button clicked. This would lead to a dedicated portfolio page with more detailed case studies or a resume/CV.');
                 });
             }
 
@@ -1008,7 +1532,7 @@
             const floatingCtaBtn = document.getElementById('floating-cta-btn');
             const heroSection = document.getElementById('hero');
 
-            if (floatingCtaBtn && heroSection) { // Safety checks
+            if (floatingCtaBtn && heroSection) {
                 const floatingCtaObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (!entry.isIntersecting) {
@@ -1034,8 +1558,135 @@
 
             // Initial display for contact form
             showContactStep(currentContactStep);
+
+            // --- My Journey Timeline Canvas Logic ---
+            if (timelineCanvas) {
+                ctx = timelineCanvas.getContext('2d');
+                resizeCanvas(); // Set initial size
+                window.addEventListener('resize', resizeCanvas); // Resize on window resize
+                window.addEventListener('scroll', drawTimeline); // Redraw on scroll
+
+                // Get initial dot positions after layout
+                setTimeout(() => {
+                    updateDotPositions();
+                    drawTimeline(); // Initial draw
+                }, 500); // Small delay to ensure elements are rendered
+            }
+
+            function resizeCanvas() {
+                if (timelineCanvas) {
+                    const journeySection = document.getElementById('my-journey');
+                    if (journeySection) {
+                        timelineCanvas.width = journeySection.offsetWidth;
+                        timelineCanvas.height = journeySection.offsetHeight;
+                        updateDotPositions(); // Recalculate dot positions on resize
+                        drawTimeline(); // Redraw after resize
+                    }
+                }
+            }
+
+            function updateDotPositions() {
+                dotPositions = [];
+                journeySteps.forEach(step => {
+                    // Get the center Y position of each journey step relative to the #my-journey section
+                    const rect = step.getBoundingClientRect();
+                    const journeyRect = document.getElementById('my-journey').getBoundingClientRect();
+                    const centerY = (rect.top + rect.bottom) / 2 - journeyRect.top;
+                    dotPositions.push(centerY);
+                });
+            }
+
+            function drawTimeline() {
+                if (!ctx || dotPositions.length === 0) return;
+
+                ctx.clearRect(0, 0, timelineCanvas.width, timelineCanvas.height);
+
+                const lineColor = '#8A2BE2'; // Purple start of gradient
+                const lineColorEnd = '#FF8C00'; // Orange end of gradient
+                const dotRadius = 8;
+                const lineWidth = 4;
+                const centerX = timelineCanvas.width / 2; // Center the line horizontally
+
+                // Calculate scroll progress within the #my-journey section
+                const journeySection = document.getElementById('my-journey');
+                if (!journeySection) return;
+
+                const sectionRect = journeySection.getBoundingClientRect();
+                const scrollYInSection = window.scrollY - sectionRect.top;
+                const sectionHeight = journeySection.offsetHeight;
+
+                // Determine how much of the line should be drawn
+                // The line should draw as the user scrolls from the top of the first dot to the bottom of the last dot
+                const firstDotY = dotPositions[0];
+                const lastDotY = dotPositions[dotPositions.length - 1];
+                const scrollableHeightOfTimeline = lastDotY - firstDotY;
+
+                let drawProgress = 0;
+                if (scrollableHeightOfTimeline > 0) {
+                    // Map scroll position to a 0-1 progress for drawing the line
+                    // Start drawing when the first dot enters the middle of the viewport
+                    // Finish drawing when the last dot enters the middle of the viewport
+                    const viewportCenterY = window.innerHeight / 2;
+                    const startDrawScroll = firstDotY - viewportCenterY + sectionRect.top;
+                    const endDrawScroll = lastDotY - viewportCenterY + sectionRect.top;
+
+                    drawProgress = (window.scrollY - startDrawScroll) / (endDrawScroll - startDrawScroll);
+                    drawProgress = Math.max(0, Math.min(1, drawProgress));
+                }
+
+                const lineEndY = firstDotY + (scrollableHeightOfTimeline * drawProgress);
+
+
+                // Draw the line
+                ctx.beginPath();
+                ctx.moveTo(centerX, firstDotY);
+                ctx.lineTo(centerX, lineEndY);
+                ctx.lineWidth = lineWidth;
+
+                // Create a gradient for the line
+                const lineGradient = ctx.createLinearGradient(0, firstDotY, 0, lastDotY);
+                lineGradient.addColorStop(0, lineColor);
+                lineGradient.addColorStop(1, lineColorEnd);
+                ctx.strokeStyle = lineGradient;
+                ctx.stroke();
+
+                // Draw dots (always draw all dots, but maybe change color based on progress)
+                dotPositions.forEach((dotY, index) => {
+                    ctx.beginPath();
+                    ctx.arc(centerX, dotY, dotRadius, 0, Math.PI * 2);
+
+                    // Determine dot color based on scroll progress
+                    const dotColorGradient = ctx.createRadialGradient(centerX, dotY, 0, centerX, dotY, dotRadius);
+                    if (dotY <= lineEndY) { // If the line has reached or passed this dot
+                        dotColorGradient.addColorStop(0, '#FFFFFF'); // White center
+                        dotColorGradient.addColorStop(1, lineColorEnd); // Orange/Purple outer
+                    } else {
+                        dotColorGradient.addColorStop(0, 'rgba(255,255,255,0.5)'); // Faded white center
+                        dotColorGradient.addColorStop(1, 'rgba(138,43,226,0.5)'); // Faded purple outer
+                    }
+                    ctx.fillStyle = dotColorGradient;
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                });
+
+                // Control visibility of journey steps based on scroll
+                journeySteps.forEach((step, index) => {
+                    const stepRect = step.getBoundingClientRect();
+                    const viewportHeight = window.innerHeight;
+                    const isVisible = stepRect.top < viewportHeight * 0.75 && stepRect.bottom > viewportHeight * 0.25; // Roughly in the middle 50% of viewport
+
+                    if (isVisible) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+            }
+            // --- End My Journey Timeline Canvas Logic ---
+
         });
     </script>
 </body>
 </html>
-
