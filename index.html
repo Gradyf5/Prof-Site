@@ -1,1 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Sales: Grady's Professional Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #222222, #000000); /* Dark Gray to Black gradient */
+            background-attachment: fixed; /* Keep gradient fixed on scroll */
+            color: #E0E0E0; /* Light gray text for contrast */
+            padding-top: 5rem; /* Space for fixed navigation bar */
+        }
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+        }
+        .btn-primary {
+            background-image: linear-gradient(to right, #8A2BE2, #FF8C00); /* Purple to Orange gradient */
+            background-size: 200% auto; /* For gradient shift effect */
+            background-position: left center; /* Start from left */
+            color: #FFFFFF; /* White text for contrast */
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-position 0.5s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .btn-primary:hover {
+            background-position: right center; /* Shift gradient on hover */
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            background-position: left center; /* Reset gradient position */
+        }
+        .feature-card, .achievement-card { /* Renamed from success-story-card */
+            background-color: rgba(255, 255, 255, 0.08); /* Slightly translucent white */
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+        }
+        .feature-card:hover, .achievement-card:hover { /* Renamed */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .achievement-card:hover { /* Renamed */
+            transform: scale(1.03);
+        }
+
+        /* Animations for Scroll Reveal */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-on-scroll.delay-200 { transition-delay: 0.2s; }
+        .reveal-on-scroll.delay-400 { transition-delay: 0.4s; }
+        .reveal-on-scroll.delay-600 { transition-delay: 0.6s; }
+        .delay-800 { animation-delay: 0.8s; }
+        .delay-1000 { animation-delay: 1s; }
+
+        /* Hero background animation (still useful for text/elements, even with fixed body bg) */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-hero-bg {
+            background-size: 200% 200%;
+            /* animation: gradientShift 15s ease infinite; - Removed for fixed body gradient */
+        }
+
+        /* Futuristic Navigation Bar */
+        .futuristic-nav {
+            background-color: rgba(0, 0, 0, 0.7); /* Translucent dark */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari support */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .nav-link-futuristic {
+            position: relative;
+            color: #B0B0B0; /* Lighter gray for nav links */
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        .nav-link-futuristic:hover {
+            color: #FF8C00; /* Orange accent on hover */
+            transform: translateY(-2px);
+        }
+        .nav-link-futuristic.active {
+            color: #FFFFFF; /* White for active */
+            font-weight: 700;
+        }
+        .nav-link-futuristic.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: #FF8C00; /* Orange accent for active indicator dot */
+            border-radius: 50%;
+            box-shadow: 0 0 8px #FF8C00; /* Subtle glow */
+            animation: pulse 1.5s infinite alternate;
+        }
+        @keyframes pulse {
+            from { transform: translateX(-50%) scale(0.8); opacity: 0.7; }
+            to { transform: translateX(-50%) scale(1.2); opacity: 1; }
+        }
+
+        /* Subtle Floating CTA */
+        .floating-cta {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-image: linear-gradient(to right, #8A2BE2, #FF8C00); /* Purple to Orange gradient */
+            background-size: 200% auto;
+            background-position: left center;
+            color: #FFFFFF;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px; /* Fully rounded */
+            font-weight: 600;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            transition: background-position 0.5s ease, transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            z-index: 40; /* Below fixed nav */
+        }
+        .floating-cta.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .floating-cta:hover {
+            background-position: right center;
+            transform: translateY(-5px) scale(1.05);
+            background-color: #FFA500;
+        }
+
+        /* Blog Post Page Styles */
+        .blog-page {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #222222, #000000); /* Dark Gray to Black gradient */
+            z-index: 1000;
+            color: #E0E0E0;
+            text-align: center;
+            padding-top: 5rem; /* Space for fixed nav */
+            overflow-y: auto;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .blog-content {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+        .blog-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .blog-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #C0C0C0;
+        }
+        .blog-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #C0C0C0;
+        }
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+        .back-btn {
+            background-image: linear-gradient(to right, #FF8C00, #8A2BE2); /* Orange to Purple gradient */
+            background-size: 200% auto;
+            background-position: left center;
+            color: #FFFFFF;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-position 0.5s ease, transform 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+            display: inline-block;
+        }
+        .back-btn:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Form specific styles */
+        .contact-form-step {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .contact-form-step.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .contact-step-indicator {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        .contact-step-indicator.active {
+            background-image: linear-gradient(to right, #8A2BE2, #FF8C00);
+            box-shadow: 0 0 8px rgba(255, 140, 0, 0.8);
+        }
+        .contact-option-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: #E0E0E0;
+        }
+        .contact-option-button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+        .contact-option-button.selected {
+            background-image: linear-gradient(to right, #8A2BE2, #FF8C00);
+            background-size: 200% auto;
+            background-position: left center;
+            color: white;
+            font-weight: 600;
+            border-color: #FF8C00;
+            box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
+        }
+        .contact-option-button.selected:hover {
+            background-position: right center;
+        }
+        .contact-input-field {
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #E0E0E0;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-input-field::placeholder {
+            color: #A0A0A0;
+        }
+        .contact-input-field:focus {
+            outline: none;
+            border-color: #FF8C00;
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.4);
+        }
+        .contact-message {
+            min-height: 20px; /* To prevent layout shift */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Spinner for contact form */
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #FF8C00; /* Spinner color */
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Thank You Pop-up Styles */
+        .thank-you-popup-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark translucent overlay */
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none; /* Allows clicks through when hidden */
+            transition: opacity 0.3s ease;
+        }
+        .thank-you-popup-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .thank-you-popup-content {
+            background: linear-gradient(135deg, #333333, #111111); /* Dark gradient background */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease; /* Pop-in effect */
+        }
+        .thank-you-popup-overlay.active .thank-you-popup-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .popup-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #B0B0B0;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .popup-close-btn:hover {
+            color: #FF8C00;
+        }
+        .popup-confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #FFD700; /* Gold */
+            border-radius: 50%;
+            animation: confetti-fall 3s linear infinite;
+            opacity: 0;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Chosen Palette: Energetic & Deep Harmony (Main: Dark Gray/Black Gradient, Accent: Purple/Orange Gradient, Secondary: Translucent White/Dark Gray) -->
+    <!-- Application Structure Plan: The homepage is structured as a professional portfolio for Grady, featuring a prominent Hero section introducing him and his expertise in affiliate sales. This is followed by "My Philosophy & Insights", "My Achievements & Milestones", and a final "Contact" section now featuring a multi-step interactive form. A fixed, futuristic navigation bar is included. All interactive buttons now log actions relevant to a portfolio site (e.g., "learn more," "view details," "contact"). Clicking on philosophy feature cards now redirects to dedicated, animated blog post pages within the SPA. Subtle pointers to connect with Grady are integrated: feature cards have implicit CTAs, the achievements section button hints at more details, and a floating "Connect with Grady" button appears on scroll. This aims to subtly funnel users towards professional networking and inquiries. A new, animated, futuristic thank-you pop-up with confetti appears after successful contact form submission. -->
+    <!-- Visualization & Content Choices: Summary: The page serves as Grady's personal portfolio for affiliate sales expertise, now with integrated blog posts and an advanced contact form. Goal: To introduce Grady, showcase his knowledge and achievements, provide deeper insights via blog posts, and encourage professional connection through a personalized inquiry process, with a celebratory thank you. Viz/Presentation Method: Large, bold headlines; concise paragraphs; illustrative emojis for features; short achievement snippets. New: Dedicated blog post pages with animated content and navigation back to portfolio. Advanced multi-step contact form with clickable buttons and animated transitions, including submission feedback (spinner, success/error messages). Animated, futuristic thank-you pop-up with confetti. Dark gray/black background gradient. Buttons and accent elements use a purple/orange gradient. Fixed, translucent navigation bar with active state indicator. Subtle floating CTA button. Interaction: Smooth scroll navigation, active section highlighting, button click handlers (console log), navigation to/from blog posts, multi-step form navigation, data collection from form, animated submission feedback, pop-up display/dismissal, confetti, scroll-triggered animations for visual flow, subtle hover effects on cards and floating CTA. Justification: A dark, vibrant design with subtle animations creates a dynamic atmosphere. Personal narrative builds trust and credibility. Clear value propositions and achievements encourage exploration and professional connection. The futuristic navigation enhances user experience. The integrated blog posts allow for deeper content engagement. The advanced contact form streamlines inquiries and gathers valuable lead information, with improved user feedback during submission. The celebratory thank-you pop-up provides a strong positive reinforcement. The pervasive subtle CTAs throughout the page gently guide the user towards engagement. Library/Method: HTML/Tailwind CSS for structure and styling. Vanilla JavaScript for scroll-reveal animations, smooth scrolling, active navigation highlighting, floating CTA visibility, multi-page SPA navigation for blog posts, multi-step contact form logic, and thank-you pop-up management. No Chart.js, Plotly.js, or SVG graphics used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Futuristic Navigation Bar -->
+    <nav class="futuristic-nav fixed top-0 left-0 right-0 z-50 py-4 px-6 flex items-center justify-between">
+        <div class="text-2xl font-black text-white">Grady<span class="text-[#FF8C00]">James</span></div>
+        <div class="space-x-6 hidden md:flex">
+            <a href="#hero" class="nav-link-futuristic active" data-section="hero">Home</a>
+            <a href="#my-philosophy" class="nav-link-futuristic" data-section="my-philosophy">My Philosophy</a>
+            <a href="#my-achievements" class="nav-link-futuristic" data-section="my-achievements">Achievements</a>
+            <a href="#cta" class="nav-link-futuristic" data-section="cta">Contact</a>
+        </div>
+        <button class="md:hidden text-white text-2xl">☰</button> <!-- Mobile menu icon -->
+    </nav>
+
+    <!-- Main Portfolio Content Wrapper -->
+    <div id="portfolio-content-wrapper">
+        <!-- Hero Section -->
+        <header id="hero" class="py-20 md:py-32 text-center overflow-hidden animated-hero-bg">
+            <div class="container">
+                <h1 class="text-5xl md:text-7xl font-black text-white leading-tight mb-6 tracking-tight reveal-on-scroll">
+                    Hi, I'm Grady! <br> My <span class="text-[#FF8C00]">Heres my Journey In Affiliate Sales</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto reveal-on-scroll delay-200">
+                    I've navigated the world of online sales. Explore my insights and achievements in building digital revenue streams.
+                </p>
+                <button id="explore-my-journey-btn" class="btn-primary reveal-on-scroll delay-400">
+                    Explore My Portfolio
+                </button>
+            </div>
+        </header>
+
+        <!-- My Philosophy & Insights Section -->
+        <section id="my-philosophy" class="py-16 md:py-24">
+            <div class="container">
+                <h2 class="text-4xl font-bold text-white text-center mb-12 reveal-on-scroll">My Affiliate Sales Philosophy & Insights</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="feature-card text-center reveal-on-scroll delay-200">
+                        <div class="text-5xl mb-4">📈</div>
+                        <h3 class="text-2xl font-semibold text-white mb-3">Strategies for Scalable Growth</h3>
+                        <p class="text-gray-300 mb-4">
+                            My approach focuses on building effective funnels and scaling traffic for consistent, long-term revenue.
+                        </p>
+                        <button class="text-[#FF8C00] font-medium text-sm hover:underline feature-cta" data-target-blog="blog-scalable-growth">View Details</button>
+                    </div>
+                    <div class="feature-card text-center reveal-on-scroll delay-400">
+                        <div class="text-5xl mb-4">📊</div>
+                        <h3 class="text-2xl font-semibold text-white mb-3">Data-Driven Decision Making</h3>
+                        <p class="text-gray-300 mb-4">
+                            Leveraging analytics is key to optimizing campaigns, identifying winning products, and maximizing ROI.
+                        </p>
+                        <button class="text-[#FF8C00] font-medium text-sm hover:underline feature-cta" data-target-blog="blog-data-driven">See My Process</button>
+                    </div>
+                    <div class="feature-card text-center reveal-on-scroll delay-600">
+                        <div class="text-5xl mb-4">💡</div>
+                        <h3 class="text-2xl font-semibold text-white mb-3">Profitable Niche Identification</h3>
+                        <p class="text-gray-300 mb-4">
+                            Insights into identifying untapped markets and high-converting offers, even in competitive landscapes.
+                        </p>
+                        <button class="text-[#FF8C00] font-medium text-sm hover:underline feature-cta" data-target-blog="blog-niche-identification">Explore My Research</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Achievements & Milestones Section -->
+        <section id="my-achievements" class="py-16 md:py-24">
+            <div class="container">
+                <h2 class="text-4xl font-bold text-white text-center mb-12 reveal-on-scroll">My Achievements & Milestones</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="achievement-card reveal-on-scroll delay-200">
+                        <div class="text-6xl mb-4">💰</div>
+                        <h3 class="text-2xl font-semibold text-white mb-2">Achieved $5K in Sales!</h3>
+                        <p class="text-gray-300">"My first major milestone in affiliate marketing, proving the power of consistent effort."</p>
+                    </div>
+                    <div class="achievement-card reveal-on-scroll delay-400">
+                        <div class="text-6xl mb-4">📈</div>
+                        <h3 class="text-2xl font-semibold text-white mb-2">Scaled Campaigns by 300%</h3>
+                        <p class="text-gray-300">"Optimizing ad spend and targeting led to a significant boost in campaign performance."</p>
+                    </div>
+                    <div class="achievement-card reveal-on-scroll delay-600">
+                        <div class="text-6xl mb-4">🌐</div>
+                        <h3 class="text-2xl font-semibold text-white mb-2">Expanded to New Markets</h3>
+                        <p class="text-gray-300">"Successfully launched campaigns in international markets, diversifying revenue streams."</p>
+                    </div>
+                </div>
+                <div class="text-center mt-12 reveal-on-scroll delay-800">
+                    <button id="see-more-achievements-btn" class="btn-primary">View Full Portfolio</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="cta" class="py-16 md:py-24 text-center">
+            <div class="container">
+                <h2 class="text-4xl font-bold text-white mb-6 reveal-on-scroll">Ready to Connect?</h2>
+                <p class="text-xl text-gray-200 mb-10 max-w-3xl mx-auto reveal-on-scroll delay-200">
+                    Tell me a bit about what you're looking for, and I'll tailor my insights to your needs.
+                </p>
+                <div id="contact-form-container" class="bg-black bg-opacity-30 p-8 rounded-2xl shadow-xl max-w-xl mx-auto reveal-on-scroll delay-400">
+                    <form id="contact-form" class="flex flex-col items-center space-y-6">
+                        <!-- Step Indicators -->
+                        <div class="flex justify-center space-x-2 mb-6">
+                            <div class="contact-step-indicator active" data-step="1"></div>
+                            <div class="contact-step-indicator" data-step="2"></div>
+                            <div class="contact-step-indicator" data-step="3"></div>
+                            <div class="contact-step-indicator" data-step="4"></div>
+                        </div>
+
+                        <!-- Step 1: What brings you here? -->
+                        <div class="contact-form-step active w-full" id="contact-step-1">
+                            <label class="block text-left text-gray-200 text-lg font-medium mb-4">What brings you here? (Select all that apply)</label>
+                            <div class="flex flex-wrap justify-center gap-3">
+                                <button type="button" class="contact-option-button" data-type="interest" data-value="Collaboration">🤝 Collaboration</button>
+                                <button type="button" class="contact-option-button" data-type="interest" data-value="Consultation">💡 Consultation</button>
+                                <button type="button" class="contact-option-button" data-type="interest" data-value="Learning">📚 Learning Affiliate Sales</button>
+                                <button type="button" class="contact-option-button" data-type="interest" data-value="Partnership">📈 Partnership Opportunities</button>
+                                <button type="button" class="contact-option-button" data-type="interest" data-value="Other">❓ Something Else</button>
+                            </div>
+                            <button type="button" class="btn-primary mt-8" data-action="next-contact">Next Step</button>
+                        </div>
+
+                        <!-- Step 2: Primary Goal -->
+                        <div class="contact-form-step w-full" id="contact-step-2">
+                            <label class="block text-left text-gray-200 text-lg font-medium mb-4">What's your primary goal? (Select all that apply)</label>
+                            <div class="flex flex-wrap justify-center gap-3">
+                                <button type="button" class="contact-option-button" data-type="goal" data-value="Increase Sales">💰 Increase Sales</button>
+                                <button type="button" class="contact-option-button" data-type="goal" data-value="Optimize Campaigns">🚀 Optimize Campaigns</button>
+                                <button type="button" class="contact-option-button" data-type="goal" data-value="Find Niches">🔍 Find Profitable Niches</button>
+                                <button type="button" class="contact-option-button" data-type="goal" data-value="Master Analytics">🧠 Master Analytics</button>
+                                <button type="button" class="contact-option-button" data-type="goal" data-value="Build Funnels">🛠️ Build Funnels</button>
+                                <button type="button" class="contact-option-button" data-type="goal" data-value="Expand Markets">🌐 Expand Markets</button>
+                            </div>
+                            <div class="flex justify-between w-full mt-8">
+                                <button type="button" class="btn-primary" data-action="prev-contact">Previous</button>
+                                <button type="button" class="btn-primary" data-action="next-contact">Next Step</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Experience Level -->
+                        <div class="contact-form-step w-full" id="contact-step-3">
+                            <label class="block text-left text-gray-200 text-lg font-medium mb-4">What's your experience level in affiliate sales?</label>
+                            <div class="flex flex-wrap justify-center gap-3">
+                                <button type="button" class="contact-option-button" data-type="experience" data-value="Beginner">👶 Beginner</button>
+                                <button type="button" class="contact-option-button" data-type="experience" data-value="Intermediate">🧑‍💻 Intermediate</button>
+                                <button type="button" class="contact-option-button" data-type="experience" data-value="Advanced">🧙‍♂️ Advanced</button>
+                                <button type="button" class="contact-option-button" data-type="experience" data-value="Agency/Brand">💼 Agency/Brand</button>
+                            </div>
+                            <div class="flex justify-between w-full mt-8">
+                                <button type="button" class="btn-primary" data-action="prev-contact">Previous</button>
+                                <button type="button" class="btn-primary" data-action="next-contact">Next Step</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Your Details -->
+                        <div class="contact-form-step w-full" id="contact-step-4">
+                            <label class="block text-left text-gray-200 text-lg font-medium mb-4">Almost there! Please provide your details:</label>
+                            <input type="text" id="contact-name" placeholder="Your Name" class="contact-input-field mb-4" required>
+                            <input type="email" id="contact-email" placeholder="Your Email" class="contact-input-field mb-4" required>
+                            <textarea id="contact-message-text" placeholder="Tell me more about what you're looking for..." rows="4" class="contact-input-field"></textarea>
+                            <div class="flex justify-between w-full mt-8">
+                                <button type="button" class="btn-primary" data-action="prev-contact">Previous</button>
+                                <button type="submit" class="btn-primary" id="final-contact-submit-btn">Send My Inquiry!</button>
+                            </div>
+                        </div>
+
+                        <p id="contact-message-display" class="text-sm text-gray-400 mt-2 contact-message"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black bg-opacity-50 py-8 text-center text-gray-400 text-sm">
+            <div class="container">
+                <p>&copy; 2025 Grady's Affiliate Sales Portfolio. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Subtle Floating CTA -->
+    <button id="floating-cta-btn" class="floating-cta">
+        Connect with Grady
+    </button>
+
+    <!-- Blog Post Pages (Initially Hidden) -->
+    <div id="blog-scalable-growth" class="blog-page">
+        <div class="blog-content reveal-on-scroll">
+            <h2>Mastering Traffic & Funnels for Scalable Growth</h2>
+            <p>
+                In the dynamic world of affiliate marketing, sustained growth isn't just about finding good products; it's about building robust systems that consistently convert. My journey has taught me that a well-optimized traffic strategy paired with a high-converting sales funnel is the bedrock of scalability. It's about understanding your audience, where they spend their time, and how to guide them seamlessly from initial interest to conversion.
+            </p>
+            <p>
+                Key elements I focus on include:
+            </p>
+            <ul class="list-disc list-inside">
+                <li>**Precision Traffic Acquisition:** Moving beyond broad targeting to pinpoint ideal customer segments with laser accuracy.</li>
+                <li>**High-Converting Funnel Design:** Crafting landing pages and follow-up sequences that nurture leads and drive action.</li>
+                <li>**A/B Testing & Optimization:** Continuously testing every element to squeeze out maximum performance from campaigns.</li>
+                <li>**Automated Follow-Up:** Implementing systems to engage leads and customers long after the initial click.</li>
+            </ul>
+            <p>
+                This isn't just about getting clicks; it's about building a predictable revenue machine.
+            </p>
+            <button class="back-btn" data-target-page="portfolio-content-wrapper">Back to Portfolio</button>
+        </div>
+    </div>
+
+    <div id="blog-data-driven" class="blog-page">
+        <div class="blog-content reveal-on-scroll">
+            <h2>The Power of Analytics in Affiliate Sales</h2>
+            <p>
+                In affiliate marketing, intuition can only take you so far. True success comes from a relentless focus on data. Every click, every impression, every conversion tells a story, and understanding that story is how you unlock exponential growth. My process is deeply rooted in analytics, transforming raw numbers into actionable insights that drive profitable decisions.
+            </p>
+            <p>
+                My data-driven approach involves:
+            </p>
+            <ul class="list-disc list-inside">
+                <li>**Tracking Key Performance Indicators (KPIs):** Beyond just sales, understanding EPC, Conversion Rate, AOV, and LTV.</li>
+                <li>**Audience Segmentation:** Using data to identify who your most profitable customers are and how to find more like them.</li>
+                <li>**Campaign Optimization:** Making real-time adjustments to ads, landing pages, and offers based on performance metrics.</li>
+                <li>**Forecasting & Budgeting:** Using historical data to predict future trends and allocate ad spend effectively.</li>
+            </ul>
+            <p>
+                Data isn't just numbers; it's the compass guiding your affiliate business to higher profits.
+            </p>
+            <button class="back-btn" data-target-page="portfolio-content-wrapper">Back to Portfolio</button>
+        </div>
+    </div>
+
+    <div id="blog-niche-identification" class="blog-page">
+        <div class="blog-content reveal-on-scroll">
+            <h2>Uncovering Hidden Market Opportunities & Profitable Niches</h2>
+            <p>
+                The affiliate landscape can seem crowded, but opportunities abound for those who know where to look. My expertise lies in digging beyond the surface to identify underserved niches and high-converting offers that others overlook. It's a blend of market research, trend analysis, and a keen eye for consumer pain points that translate into profitable solutions.
+            </p>
+            <p>
+                My process for niche identification includes:
+            </p>
+            <ul class="list-disc list-inside">
+                <li>**Problem-First Approach:** Identifying specific problems consumers are actively trying to solve.</li>
+                <li>**Competitor Analysis:** Learning from successful players while finding gaps they've missed.</li>
+                <li>**Traffic Source Exploration:** Discovering where niche audiences gather online.</li>
+                <li>**Offer Vetting:** Ensuring affiliate products genuinely solve problems and offer strong commissions.</li>
+            </ul>
+            <p>
+                Finding the right niche isn't just about avoiding competition; it's about connecting the right solution with the right audience.
+            </p>
+            <button class="back-btn" data-target-page="portfolio-content-wrapper">Back to Portfolio</button>
+        </div>
+    </div>
+
+    <!-- Thank You Pop-up Overlay -->
+    <div id="thank-you-popup-overlay" class="thank-you-popup-overlay">
+        <div id="thank-you-popup-content" class="thank-you-popup-content">
+            <button class="popup-close-btn" id="popup-close-btn">×</button>
+            <div class="text-6xl mb-4">✨</div>
+            <h3 class="text-3xl font-bold text-white mb-3">Message Sent!</h3>
+            <p class="text-gray-300 mb-6">
+                Thanks for reaching out! I've received your inquiry and will get back to you as soon as possible.
+            </p>
+            <button class="btn-primary" onclick="window.location.reload();">Return to Portfolio</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Main content wrapper and blog page elements
+            const portfolioContentWrapper = document.getElementById('portfolio-content-wrapper');
+            const blogPages = document.querySelectorAll('.blog-page');
+
+            // Contact Form Elements
+            const contactForm = document.getElementById('contact-form');
+            const contactFormSteps = document.querySelectorAll('.contact-form-step');
+            const contactStepIndicators = document.querySelectorAll('.contact-step-indicator');
+            const contactMessageDisplay = document.getElementById('contact-message-display');
+            const contactNameInput = document.getElementById('contact-name');
+            const contactEmailInput = document.getElementById('contact-email');
+            const contactMessageInput = document.getElementById('contact-message-text');
+            const finalContactSubmitBtn = document.getElementById('final-contact-submit-btn');
+
+            let currentContactStep = 0;
+            let contactFormResponses = {
+                interests: [],
+                goals: [],
+                experience: [],
+                name: '',
+                email: '',
+                message: ''
+            };
+
+            // Thank You Pop-up Elements
+            const thankYouPopupOverlay = document.getElementById('thank-you-popup-overlay');
+            const thankYouPopupContent = document.getElementById('thank-you-popup-content');
+            const popupCloseBtn = document.getElementById('popup-close-btn');
+
+            function showContactStep(stepIndex) {
+                contactFormSteps.forEach((step, index) => {
+                    if (index === stepIndex) {
+                        step.style.opacity = '0';
+                        step.style.transform = 'translateY(20px)';
+                        step.classList.add('active');
+                        setTimeout(() => {
+                            step.style.opacity = '1';
+                            step.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        step.style.opacity = '0';
+                        step.style.transform = 'translateY(-20px)';
+                        setTimeout(() => {
+                            step.classList.remove('active');
+                        }, 500);
+                    }
+                });
+                contactStepIndicators.forEach((indicator, index) => {
+                    if (index <= stepIndex) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+
+            function updateContactPreferences(button) {
+                const type = button.dataset.type;
+                const value = button.dataset.value;
+
+                // For single-selection steps (like experience), clear others first
+                if (type === 'experience') {
+                    document.querySelectorAll('.contact-option-button[data-type="experience"]').forEach(btn => btn.classList.remove('selected'));
+                    contactFormResponses.experience = [value]; // Ensure it's an array for consistency
+                } else { // For multi-selection steps
+                    if (button.classList.contains('selected')) {
+                        if (type === 'interest') {
+                            contactFormResponses.interests = contactFormResponses.interests.filter(item => item !== value);
+                        } else if (type === 'goal') {
+                            contactFormResponses.goals = contactFormResponses.goals.filter(item => item !== value);
+                        }
+                    } else {
+                        if (type === 'interest') {
+                            contactFormResponses.interests.push(value);
+                        } else if (type === 'goal') {
+                            contactFormResponses.goals.push(value);
+                        }
+                    }
+                }
+                button.classList.toggle('selected');
+            }
+
+            // Attach event listeners for contact form preference buttons
+            document.querySelectorAll('#contact-form .contact-option-button').forEach(button => {
+                if (button) { // Safety check
+                    button.addEventListener('click', (event) => updateContactPreferences(event.target));
+                }
+            });
+
+            // Handle contact form navigation
+            if (contactForm) { // Safety check
+                contactForm.addEventListener('click', (event) => {
+                    if (event.target.dataset.action === 'next-contact') {
+                        // Basic validation for current step before moving next
+                        if (currentContactStep === 0 && contactFormResponses.interests.length === 0) {
+                            contactMessageDisplay.innerHTML = 'Please select at least one option. ⚠️';
+                            contactMessageDisplay.style.color = '#FF4500'; /* OrangeRed for error */
+                            return;
+                        }
+                        if (currentContactStep === 1 && contactFormResponses.goals.length === 0) {
+                            contactMessageDisplay.innerHTML = 'Please select at least one goal. ⚠️';
+                            contactMessageDisplay.style.color = '#FF4500';
+                            return;
+                        }
+                        if (currentContactStep === 2 && contactFormResponses.experience.length === 0) {
+                            contactMessageDisplay.innerHTML = 'Please select your experience level. ⚠️';
+                            contactMessageDisplay.style.color = '#FF4500';
+                            return;
+                        }
+                        contactMessageDisplay.innerHTML = ''; // Clear message on success
+                        currentContactStep++;
+                        showContactStep(currentContactStep);
+                    } else if (event.target.dataset.action === 'prev-contact') {
+                        contactMessageDisplay.innerHTML = ''; // Clear message
+                        currentContactStep--;
+                        showContactStep(currentContactStep);
+                    }
+                });
+
+                // Handle final contact form submission
+                contactForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+
+                    contactFormResponses.name = contactNameInput.value.trim();
+                    contactFormResponses.email = contactEmailInput.value.trim();
+                    contactFormResponses.message = contactMessageInput.value.trim();
+
+                    if (!contactFormResponses.name || !contactFormResponses.email || !contactFormResponses.message) {
+                        contactMessageDisplay.innerHTML = 'Please fill in all required fields. ⚠️';
+                        contactMessageDisplay.style.color = '#FF4500';
+                        return;
+                    }
+                    if (!contactFormResponses.email.includes('@') || !contactFormResponses.email.includes('.')) {
+                        contactMessageDisplay.innerHTML = 'Please enter a valid email address. ⚠️';
+                        contactMessageDisplay.style.color = '#FF4500';
+                        return;
+                    }
+
+                    // Show processing animation
+                    if (finalContactSubmitBtn) { // Safety check
+                        finalContactSubmitBtn.disabled = true;
+                    }
+                    contactMessageDisplay.innerHTML = `Sending inquiry... <div class="spinner"></div>`;
+                    contactMessageDisplay.style.color = '#B0B0B0'; /* Gray for processing */
+
+
+                    // Simulate submission
+                    setTimeout(() => {
+                        console.log('Contact Form Submitted:', contactFormResponses);
+                        contactMessageDisplay.innerHTML = 'Inquiry sent! ✅'; // Brief inline success message
+                        contactMessageDisplay.style.color = '#8A2BE2'; /* Purple for success */
+                        contactForm.reset(); // Clear the form
+                        if (finalContactSubmitBtn) { // Safety check
+                            finalContactSubmitBtn.disabled = false; // Re-enable button
+                        }
+
+                        // Trigger the thank you pop-up
+                        showThankYouPopup();
+
+                        // Optionally, reset to first step or hide form after pop-up is shown
+                        setTimeout(() => {
+                            currentContactStep = 0;
+                            showContactStep(currentContactStep);
+                            contactMessageDisplay.innerHTML = ''; // Clear success message after a delay
+                        }, 3000); // Reset form after 3 seconds
+                    }, 2000); // Simulate 2-second submission time
+                });
+            }
+
+
+            // --- Thank You Pop-up Logic ---
+            function showThankYouPopup() {
+                if (thankYouPopupOverlay) { // Safety check
+                    thankYouPopupOverlay.classList.add('active');
+                    if (thankYouPopupContent) { // Safety check
+                        createConfetti(thankYouPopupContent); // Pass content div to spawn confetti within
+                    }
+                }
+            }
+
+            function hideThankYouPopup() {
+                if (thankYouPopupOverlay) { // Safety check
+                    thankYouPopupOverlay.classList.remove('active');
+                    if (thankYouPopupContent) { // Safety check
+                        // Clear existing confetti
+                        thankYouPopupContent.querySelectorAll('.popup-confetti').forEach(c => c.remove());
+                    }
+                }
+            }
+
+            if (popupCloseBtn) { // Safety check for the button itself
+                popupCloseBtn.addEventListener('click', hideThankYouPopup);
+            }
+            if (thankYouPopupOverlay) { // Safety check for the overlay
+                thankYouPopupOverlay.addEventListener('click', (e) => {
+                    if (e.target === thankYouPopupOverlay) { // Only close if clicking the overlay, not the content
+                        hideThankYouPopup();
+                    }
+                });
+            }
+
+            function createConfetti(containerElement) {
+                const colors = ['#FFD700', '#FF4500', '#8A2BE2', '#00BFFF', '#FF69B4']; // Gold, Tomato, BlueViolet, DeepSkyBlue, HotPink
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('popup-confetti');
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = Math.random() * -50 + 'px'; // Start above the popup
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
+                    containerElement.appendChild(confetti);
+                }
+            }
+            // --- End Thank You Pop-up Logic ---
+
+
+            // --- Navigation Logic ---
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a.nav-link-futuristic').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Hide any active blog pages first
+                    blogPages.forEach(page => page.style.display = 'none');
+                    if (portfolioContentWrapper) { // Safety check
+                        portfolioContentWrapper.style.display = 'block'; // Ensure main content is visible
+                    }
+
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('nav').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 20;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Intersection Observer for active navigation link on scroll
+            const sections = document.querySelectorAll('section, header#hero');
+            const navLinks = document.querySelectorAll('nav a.nav-link-futuristic');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-50% 0px -49% 0px', /* Adjust to highlight when section is roughly in middle */
+                threshold: 0 /* No threshold needed, rootMargin handles it */
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('data-section') === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // --- Blog Post Navigation ---
+            document.querySelectorAll('.feature-cta').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetBlogId = this.dataset.targetBlog;
+                    if (targetBlogId) {
+                        if (portfolioContentWrapper) { // Safety check
+                            portfolioContentWrapper.style.display = 'none'; // Hide main content
+                        }
+                        const targetBlogPage = document.getElementById(targetBlogId);
+                        if (targetBlogPage) {
+                            targetBlogPage.style.display = 'block'; // Show specific blog page
+                            window.scrollTo(0, 0); // Scroll to top of blog page
+                            // Re-observe elements on the new page for reveal animation
+                            const newRevealElements = targetBlogPage.querySelectorAll('.reveal-on-scroll');
+                            newRevealElements.forEach(el => revealObserver.observe(el));
+                        }
+                        console.log(`Navigating to blog post: ${targetBlogId}`);
+                    } else {
+                        const feature = this.dataset.feature; // Fallback for other CTA types
+                        console.log(`Feature card CTA for "${feature}" clicked. This would lead to more detailed content about that philosophy point.`);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.back-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetPageId = this.dataset.targetPage;
+                    if (targetPageId === 'portfolio-content-wrapper') {
+                        blogPages.forEach(page => page.style.display = 'none'); // Hide all blog pages
+                        if (portfolioContentWrapper) { // Safety check
+                            portfolioContentWrapper.style.display = 'block'; // Show main content
+                        }
+                        window.scrollTo(0, 0); // Scroll to top of main content
+                        console.log('Navigating back to portfolio.');
+                    }
+                });
+            });
+
+            // --- Scroll-triggered animations for elements ---
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            const revealObserverOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealObserverOptions);
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // --- Other Button interactivity (console logs for connecting) ---
+            const exploreMyJourneyBtn = document.getElementById('explore-my-journey-btn');
+            if (exploreMyJourneyBtn) { // Safety check
+                exploreMyJourneyBtn.addEventListener('click', () => {
+                    console.log('Hero: "Explore My Portfolio" button clicked. This would scroll down to "My Philosophy" section.');
+                    document.getElementById('my-philosophy').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+
+            const seeMoreAchievementsBtn = document.getElementById('see-more-achievements-btn');
+            if (seeMoreAchievementsBtn) { // Safety check
+                seeMoreAchievementsBtn.addEventListener('click', () => {
+                    console.log('My Achievements: "View Full Portfolio" button clicked. This would lead to a dedicated portfolio page with more detailed case studies or a resume/CV.');
+                });
+            }
+
+            // --- Subtle Floating CTA Logic ---
+            const floatingCtaBtn = document.getElementById('floating-cta-btn');
+            const heroSection = document.getElementById('hero');
+
+            if (floatingCtaBtn && heroSection) { // Safety checks
+                const floatingCtaObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) {
+                            floatingCtaBtn.classList.add('is-visible');
+                        } else {
+                            floatingCtaBtn.classList.remove('is-visible');
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0
+                });
+
+                floatingCtaObserver.observe(heroSection);
+
+                floatingCtaBtn.addEventListener('click', () => {
+                    console.log('Floating "Connect with Grady" button clicked. This would lead to the contact form.');
+                    document.getElementById('cta').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+            // --- End Subtle Floating CTA Logic ---
+
+            // Initial display for contact form
+            showContactStep(currentContactStep);
+        });
+    </script>
+</body>
+</html>
 
